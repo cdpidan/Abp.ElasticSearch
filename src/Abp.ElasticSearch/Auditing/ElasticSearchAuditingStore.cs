@@ -4,11 +4,11 @@ using Abp.ElasticSearch;
 
 namespace Abp.Auditing
 {
-    public class ElasticSearchAuditStore : IAuditingStore, ITransientDependency
+    public class ElasticSearchAuditingStore : IAuditingStore, ITransientDependency
     {
         private readonly IElasticSeachClientProvider _elasticSeachClientProvider;
 
-        public ElasticSearchAuditStore(IElasticSeachClientProvider elasticSeachClientProvider)
+        public ElasticSearchAuditingStore(IElasticSeachClientProvider elasticSeachClientProvider)
         {
             _elasticSeachClientProvider = elasticSeachClientProvider;
         }

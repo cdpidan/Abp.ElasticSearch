@@ -1,4 +1,8 @@
-﻿using Abp.ElasticSearch.Configuration;
+﻿using System;
+using System.Threading.Tasks;
+using Abp.Auditing;
+using Abp.ElasticSearch.Tests.ElasticSearch;
+using Nest;
 using NSubstitute;
 using Shouldly;
 using Xunit;
@@ -7,39 +11,52 @@ namespace Abp.ElasticSearch.Tests.Auditing
 {
     public class ElasticSearchAuditingStoreTests : AbpElasticSearchTestBase
     {
-        private readonly IElasticSeachClientProvider _elasticSeachClientProvider;
+        private readonly ElasticSearchClientTestProvider _elasticSeachClientProvider;
 
         public ElasticSearchAuditingStoreTests()
         {
-            _elasticSeachClientProvider = Resolve<IElasticSeachClientProvider>();
+            _elasticSeachClientProvider = Resolve<ElasticSearchClientTestProvider>();
         }
 
         [Fact]
-        public void Test()
+        public async Task SaveAsync_Test()
         {
-            var client = _elasticSeachClientProvider.ElasticClient;
+            _elasticSeachClientProvider.ElasticClient = Substitute.For<IElasticClient>();
 
-//            var  createIndexResponse =client.CreateIndex("111");
-//            
-//            createIndexResponse.IsValid.ShouldBeTrue();
+            var store = new ElasticSearchAuditingStore(_elasticSeachClientProvider);
 
-            var indexResponse = client.IndexDocument(new TestThing("peter rabbit"));
-            indexResponse.IsValid.ShouldBeTrue();
+            var auditInfo = new AuditInfo
+            {
+                ClientName = "AbpTest",
+                ClientIpAddress = "127.0.0.1",
+                MethodName = "Test",
+                ServiceName = "Hello"
+            };
 
-            var result = client.Search<TestThing>();
-            result.ShouldNotBeNull();
+            await store.SaveAsync(auditInfo);
 
-//            result..Success.Should().BeTrue();
+            await _elasticSeachClientProvider.ElasticClient.Received()
+                .IndexAsync(
+                    Arg.Is<AuditInfo>(x =>
+                        x.ClientName == auditInfo.ClientName
+                        && x.ClientIpAddress == auditInfo.ClientIpAddress
+                        && x.MethodName == auditInfo.MethodName
+                        && x.ServiceName == auditInfo.ServiceName
+                        && x.ServiceName == auditInfo.ServiceName
+                    ),
+                    Arg.Any<Func<IndexDescriptor<AuditInfo>, IIndexRequest<AuditInfo>>>());
         }
 
-        public class TestThing
+        [Fact]
+        public void Test2()
         {
-            public string Stuff { get; }
+            var response = CreateSearchResonse(index => new AuditInfo {ClientName = $"Client {index}"}, 25);
+            var client = GetElasticClient(response);
 
-            public TestThing(string stuff)
-            {
-                Stuff = stuff;
-            }
+            var searchResponse = client.Search<AuditInfo>(s => s.MatchAll());
+
+            searchResponse.IsValid.ShouldBeTrue();
+            searchResponse.Documents.Count.ShouldBe(25);
         }
     }
 }

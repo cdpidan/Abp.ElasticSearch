@@ -15,7 +15,7 @@ namespace Abp.ElasticSearch
 
             if (Configuration.Modules.ElasticSearch()?.UseAuditingLog == true)
             {
-                IocManager.RegisterIfNot<IAuditingStore, ElasticSearchAuditingStore>();
+                IocManager.RegisterIfNot<IAuditingStore, ElasticSearchAuditingStore>(DependencyLifeStyle.Transient);
             }
         }
 

@@ -12,6 +12,7 @@ namespace Abp.ElasticSearch.Tests.ElasticSearch
             Configuration.Modules.ElasticSearch().ConnectionString = "http://localhost:9200";
             Configuration.Modules.ElasticSearch().AuthUserName = "elastic";
             Configuration.Modules.ElasticSearch().AuthPassWord = "elasticpw";
+            Configuration.Modules.ElasticSearch().UseAuditingLog = false;
 
             Configuration.ReplaceService<IElasticSeachClientProvider, ElasticSearchClientTestProvider>();
         }

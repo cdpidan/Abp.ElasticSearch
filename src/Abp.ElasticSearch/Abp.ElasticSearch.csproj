@@ -19,4 +19,7 @@
     <PackageReference Include="Abp" Version="3.6.2" />
     <PackageReference Include="NEST" Version="6.1.0" />
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="bin\Release\netstandard2.0\Abp.ElasticSearch.pdb" />
+  </ItemGroup>
 </Project>

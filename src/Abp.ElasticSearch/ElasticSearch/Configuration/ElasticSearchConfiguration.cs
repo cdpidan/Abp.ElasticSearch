@@ -1,19 +1,10 @@
-﻿using Abp.Configuration.Startup;
-
-namespace Abp.ElasticSearch.Configuration
+﻿namespace Abp.ElasticSearch.Configuration
 {
     /// <summary>
     /// 连接配置
     /// </summary>
-    public class ElasticSearchConfiguration : IElasticSearchConfigration
+    public class ElasticSearchConfiguration : IElasticSearchConfiguration
     {
-        public ElasticSearchConfiguration(IAbpStartupConfiguration abpStartupConfiguration)
-        {
-            AbpStartupConfiguration = abpStartupConfiguration;
-        }
-
-        public IAbpStartupConfiguration AbpStartupConfiguration { get; }
-
         /// <summary>
         /// 连接字符串支持多个节点主机 使用|进行分隔
         /// 例如 localhost:9200|localhost:8200
@@ -29,5 +20,10 @@ namespace Abp.ElasticSearch.Configuration
         /// 授权密码
         /// </summary>
         public string AuthPassWord { get; set; }
+
+        /// <summary>
+        /// 是否保存审计日志到Es
+        /// </summary>
+        public bool UseAuditingLog { get; set; }
     }
 }

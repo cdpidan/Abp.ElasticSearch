@@ -9,10 +9,10 @@ namespace Abp.ElasticSearch
 {
     public class ElasticSeachClientProvider : IElasticSeachClientProvider, ISingletonDependency
     {
-        private readonly IElasticSearchConfigration _elasticSearchConfigration;
+        private readonly IElasticSearchConfiguration _elasticSearchConfigration;
         private readonly Lazy<IElasticClient> _client;
 
-        public ElasticSeachClientProvider(IElasticSearchConfigration elasticSearchConfigration)
+        public ElasticSeachClientProvider(IElasticSearchConfiguration elasticSearchConfigration)
         {
             _elasticSearchConfigration = elasticSearchConfigration;
             _client = new Lazy<IElasticClient>(CreatElasticClient);

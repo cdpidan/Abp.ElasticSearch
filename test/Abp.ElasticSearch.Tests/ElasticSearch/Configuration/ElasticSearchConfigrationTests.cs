@@ -9,7 +9,7 @@ namespace Abp.ElasticSearch.Tests.ElasticSearch.Configuration
         [Fact]
         public void Test_ResolveElasticSearchConfiguration()
         {
-            var elasticSearchConfigration = Resolve<IElasticSearchConfigration>();
+            var elasticSearchConfigration = Resolve<IElasticSearchConfiguration>();
 
             elasticSearchConfigration.ShouldNotBeNull();
             elasticSearchConfigration.ConnectionString.ShouldBe("http://localhost:9200");
@@ -20,11 +20,11 @@ namespace Abp.ElasticSearch.Tests.ElasticSearch.Configuration
         [Fact]
         public void Test_ChangeConfiguration()
         {
-            var elasticSearchConfigration = Resolve<IElasticSearchConfigration>();
+            var elasticSearchConfigration = Resolve<IElasticSearchConfiguration>();
 
             elasticSearchConfigration.AuthPassWord = "helloworld";
 
-            var newElasticSearchConfigration = Resolve<IElasticSearchConfigration>();
+            var newElasticSearchConfigration = Resolve<IElasticSearchConfiguration>();
             newElasticSearchConfigration.AuthPassWord.ShouldBe(elasticSearchConfigration.AuthPassWord);
         }
     }

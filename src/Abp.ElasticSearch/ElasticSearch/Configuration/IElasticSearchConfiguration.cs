@@ -22,5 +22,10 @@
         /// 是否保存审计日志到Es
         /// </summary>
         bool UseAuditingLog { get; set; }
+
+        /// <summary>
+        /// 审计日志索引名称
+        /// </summary>
+        string AuditingLogIndexName { get; set; }
     }
 }

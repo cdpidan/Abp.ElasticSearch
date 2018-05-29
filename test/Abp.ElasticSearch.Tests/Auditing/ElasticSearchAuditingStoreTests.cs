@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 using Abp.Auditing;
+using Abp.ElasticSearch.Configuration;
 using Abp.ElasticSearch.Tests.ElasticSearch;
 using Nest;
 using NSubstitute;
@@ -12,10 +13,12 @@ namespace Abp.ElasticSearch.Tests.Auditing
     public class ElasticSearchAuditingStoreTests : AbpElasticSearchTestBase
     {
         private readonly ElasticSearchClientTestProvider _elasticSeachClientProvider;
+        private readonly IElasticSearchConfiguration _elasticSearchConfiguration;
 
         public ElasticSearchAuditingStoreTests()
         {
             _elasticSeachClientProvider = Resolve<ElasticSearchClientTestProvider>();
+            _elasticSearchConfiguration = Resolve<IElasticSearchConfiguration>();
         }
 
         [Fact]
@@ -23,7 +26,7 @@ namespace Abp.ElasticSearch.Tests.Auditing
         {
             _elasticSeachClientProvider.ElasticClient = Substitute.For<IElasticClient>();
 
-            var store = new ElasticSearchAuditingStore(_elasticSeachClientProvider);
+            var store = new ElasticSearchAuditingStore(_elasticSeachClientProvider, _elasticSearchConfiguration);
 
             var auditInfo = new AuditInfo
             {

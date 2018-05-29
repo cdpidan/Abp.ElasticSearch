@@ -25,5 +25,10 @@
         /// 是否保存审计日志到Es
         /// </summary>
         public bool UseAuditingLog { get; set; }
+
+        /// <summary>
+        /// 审计日志索引名称，默认值：abp-audit-log
+        /// </summary>
+        public string AuditingLogIndexName { get; set; } = "abp-audit-log";
     }
 }

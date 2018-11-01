@@ -7,12 +7,12 @@ using Nest;
 
 namespace Abp.ElasticSearch
 {
-    public class ElasticSeachClientProvider : IElasticSeachClientProvider, ISingletonDependency
+    public class ElasticSearchClientProvider : IElasticSearchClientProvider, ISingletonDependency
     {
         private readonly IElasticSearchConfiguration _elasticSearchConfigration;
         private readonly Lazy<IElasticClient> _client;
 
-        public ElasticSeachClientProvider(IElasticSearchConfiguration elasticSearchConfigration)
+        public ElasticSearchClientProvider(IElasticSearchConfiguration elasticSearchConfigration)
         {
             _elasticSearchConfigration = elasticSearchConfigration;
             _client = new Lazy<IElasticClient>(CreatElasticClient);

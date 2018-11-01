@@ -5,7 +5,7 @@ using NSubstitute;
 
 namespace Abp.ElasticSearch.Tests.ElasticSearch
 {
-    public class ElasticSearchClientTestProvider : IElasticSeachClientProvider
+    public class ElasticSearchClientTestProvider : IElasticSearchClientProvider
     {
         private IElasticClient _client;
 

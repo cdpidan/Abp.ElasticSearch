@@ -14,7 +14,7 @@ namespace Abp.ElasticSearch.Tests.ElasticSearch
             Configuration.Modules.ElasticSearch().AuthPassWord = "elasticpw";
             Configuration.Modules.ElasticSearch().UseAuditingLog = false;
 
-            Configuration.ReplaceService<IElasticSeachClientProvider, ElasticSearchClientTestProvider>();
+            Configuration.ReplaceService<IElasticSearchClientProvider, ElasticSearchClientTestProvider>();
         }
     }
 }

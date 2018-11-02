@@ -7,19 +7,19 @@ namespace Abp.Auditing
 {
     public class ElasticSearchAuditingStore : IAuditingStore, ITransientDependency
     {
-        private readonly IElasticSeachClientProvider _elasticSeachClientProvider;
+        private readonly IElasticSearchClientProvider _elasticSearchClientProvider;
         private readonly IElasticSearchConfiguration _elasticSearchConfiguration;
 
-        public ElasticSearchAuditingStore(IElasticSeachClientProvider elasticSeachClientProvider,
+        public ElasticSearchAuditingStore(IElasticSearchClientProvider elasticSearchClientProvider,
             IElasticSearchConfiguration elasticSearchConfiguration)
         {
-            _elasticSeachClientProvider = elasticSeachClientProvider;
+            _elasticSearchClientProvider = elasticSearchClientProvider;
             _elasticSearchConfiguration = elasticSearchConfiguration;
         }
 
         public async Task SaveAsync(AuditInfo auditInfo)
         {
-            await _elasticSeachClientProvider.ElasticClient.IndexAsync(auditInfo,
+            await _elasticSearchClientProvider.ElasticClient.IndexAsync(auditInfo,
                 x => x.Index(_elasticSearchConfiguration.AuditingLogIndexName));
         }
     }

@@ -2,7 +2,7 @@
 
 namespace Abp.ElasticSearch
 {
-    public interface IElasticSeachClientProvider
+    public interface IElasticSearchClientProvider
     {
         IElasticClient ElasticClient { get; }
     }
